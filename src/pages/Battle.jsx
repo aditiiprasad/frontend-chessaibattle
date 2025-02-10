@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ChessGame from "../components/ChessGame";
 import MatchSetup from "../components/MatchSetup";
+import Header from "../components/Header";
 
 const Battle = () => {
   const [gameStarted, setGameStarted] = useState(false);
@@ -14,7 +15,9 @@ const Battle = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white flex items-center justify-center">
+    <div>
+      <Header/>
+    <div className="min-h-screen bg-gradient-to-br  from-black to-amber-950 text-white flex items-center justify-center">
       {!gameStarted ? (
         <MatchSetup startGame={startGame} />
       ) : (
@@ -22,6 +25,7 @@ const Battle = () => {
           <ChessGame />
         </div>
       )}
+    </div>
     </div>
   );
 };

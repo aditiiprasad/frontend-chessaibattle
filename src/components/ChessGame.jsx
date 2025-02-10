@@ -14,7 +14,7 @@ const ChessGame = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="min-h-screen m-24 flex flex-col items-center justify-center  text-white">
       {/* Game Title */}
       <h2 className="text-3xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-red-500">
         Chess AI Battle
