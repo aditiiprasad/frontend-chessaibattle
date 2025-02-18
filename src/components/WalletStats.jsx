@@ -17,19 +17,19 @@ const WalletStats = () => {
 
       <div className="space-y-4">
       
-        <div className="p-4 rounded-lg shadow-md border border-[#5D4037] backdrop-blur-md bg-[#4E342E]/5">
-          <p className="text-lg font-semibold text-yellow-400">💰 Total Money Won</p>
-          <p className="text-xl font-bold">{totalWon}</p>
-          <button className="mt-2 w-full py-2 rounded-full bg-gradient-to-r font-mono from-yellow-800 to-yellow-400 text-black font-bold shadow-lg transition-all duration-300 hover:scale-105">
+        <div className="p-4 font-lilita rounded-lg shadow-md border border-[#5D4037] backdrop-blur-md bg-[#4E342E]/5">
+          <p className="text-lg  text-yellow-400">💰 Total Money Won</p>
+          <p className="text-xl ">{totalWon}</p>
+          <button className="mt-2 w-full py-2 rounded-full bg-gradient-to-r  from-yellow-800 to-yellow-400 text-black  shadow-lg transition-all duration-300 hover:scale-105">
             Redeem Winnings
           </button>
         </div>
 
       
-        <div className="p-4 rounded-lg shadow-md border border-[#5D4037] backdrop-blur-md bg-[#4E342E]/5">
-          <p className="text-lg font-semibold text-green-400">🏦 Wallet Balance</p>
-          <p className="text-xl font-bold">{walletBalance}</p>
-          <button className="mt-2 w-full py-2 rounded-full bg-gradient-to-r from-[#6B8E23] to-[#59820d] text-black font-mono font-bold shadow-lg transition-all duration-300 hover:scale-105">
+        <div className="p-4 rounded-lg shadow-md border font-lilita border-[#5D4037] backdrop-blur-md bg-[#4E342E]/5">
+          <p className="text-lg  text-green-400">🏦 Wallet Balance</p>
+          <p className="text-xl ">{walletBalance}</p>
+          <button className="mt-2 w-full py-2 rounded-full bg-gradient-to-r from-[#6B8E23] to-[#59820d] text-white  shadow-lg transition-all duration-300 hover:scale-105">
             Add Money
           </button>
         </div>

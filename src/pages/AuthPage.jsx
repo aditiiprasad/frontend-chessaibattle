@@ -1,33 +1,62 @@
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import AuthForm from "../components/AuthForm";
+import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import AI from "../assets/ai.png"
+import authImage from "../assets/AI.png"; 
 
 const AuthPage = () => {
-  const navigate = useNavigate();
+  const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate(); 
+
+  const handleAuth = async (formData) => {
+    try {
+      const url = isLogin ? "#" : "#";
+      const response = await axios.post(url, formData);
+  
+      console.log("Success:", response.data);
+  
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("email", formData.email);  
+  
+      navigate("/home");
+    } catch (error) {
+      console.error("Error:", error.response?.data || error);
+      alert(error.response?.data?.message || "An error occurred");
+    }
+  };
 
   return (
-    <div className="bg-gradient-to-br from-[#231205] to-[#3d1a00] w-full min-h-screen border-black border-2 relative">
-      
+    <div className="w-full min-h-screen bg-gradient-to-br from-[#231205] to-[#3d1a00] flex flex-col">
       <Header />
-      
-      
-      <div className="flex flex-col lg:flex-row items-center justify-center flex-grow p-6">
-       
-        <div className="w-full lg:w-1/2 flex justify-center p-6">
-          <AuthForm onAuthSuccess={() => navigate("/home")} />
+
+      <div className="flex flex-col md:flex-row items-center justify-center w-full min-h-screen p-4 lg:px-20">
+        
+        
+        <div className="hidden md:flex w-1/2 justify-center">
+          <img 
+            src={authImage} 
+            alt="Auth Illustration" 
+            className="max-w-full h-auto object-cover rounded-2xl shadow-lg"
+          />
         </div>
 
        
-        <div className="mt-24 w-full lg:w-1/2 flex justify-center p-6">
-          <img
-            src={AI}
-            alt="Chess Preview"
-            className="w-full max-w-md rounded-2xl shadow-2xl border-4 border-[#5D4037]"
-          />
+        <div className="w-full md:w-1/2 flex flex-col items-center">
+          <AuthForm mode={isLogin ? "login" : "signup"} onSubmit={handleAuth} />
+          
+        
+          <button
+            onClick={() => setIsLogin(!isLogin)}
+            className="mt-4 text-yellow-400 font-lilita underline hover:text-custom-red"
+          >
+            {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Login"}
+          </button>
         </div>
+
       </div>
+
       <Footer />
     </div>
   );

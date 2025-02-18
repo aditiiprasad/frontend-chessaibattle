@@ -16,18 +16,18 @@ const Battle = () => {
   };
 
   return (
-    <div>
-      <Header/>
-    <div className="min-h-screen bg-gradient-to-br  from-black to-amber-950 text-white flex items-center justify-center">
-      {!gameStarted ? (
-        <MatchSetup startGame={startGame} />
-      ) : (
-        <div className="transition-opacity duration-500 ease-in-out">
-          <ChessGame />
-        </div>
-      )}
-    </div>
-    <Footer/>
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-black to-amber-950 text-white">
+      <Header />
+
+      <div className="flex-1 flex items-center justify-center">
+        {!gameStarted ? (
+          <MatchSetup startGame={startGame} />
+        ) : (
+          <ChessGame aiModel={selectedModel} />
+        )}
+      </div>
+
+      <Footer />
     </div>
   );
 };

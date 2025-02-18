@@ -1,73 +1,93 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-const AuthForm = ({ onAuthSuccess }) => {
-  const [isSignup, setIsSignup] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+const AuthForm = ({ mode, onSubmit }) => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    onSubmit(formData).finally(() => setLoading(false));
+  };
+
+  const handleGuestLogin = () => {
+    setFormData({
+      email: "guestuser@gmail.com",
+      password: "12345678",
+    });
+  };
 
   return (
-    <div className="mt-24 flex flex-col items-center justify-center w-full max-w-md p-8 bg-gradient-to-br from-[#6F4E37] to-[#D7A86E] shadow-xl rounded-3xl text-white">
-      <div className="flex w-full mb-6">
-      <button
-  className={`w-1/2 py-3 font-bold text-lg rounded-full transition-all duration-300 hover:bg-gradient-to-r hover:from-[#3e570b] hover:to-[#556B2F] hover:border-transparent ${
-    !isSignup
-      ? "bg-gradient-to-r border-b-2 border-lime-700 from-[#556B2F] to-[#3e570b] text-white shadow-lg"
-      : "bg-transparent border-2 border-white font-bold hover:text-white"
-  }`}
-  onClick={() => setIsSignup(false)}
->
-  Login
-</button>
-<button
-  className={`w-1/2 py-3 font-bold text-lg rounded-full transition-all duration-300 hover:bg-gradient-to-r hover:from-[#3e570b] hover:to-[#556B2F] hover:border-transparent ${
-    isSignup
-      ? "bg-gradient-to-r border-b-2 border-lime-700 from-[#556B2F] to-[#3e570b] text-white shadow-lg"
-      : "bg-transparent border-2 border-white font-bold hover:text-white"
-  }`}
-  onClick={() => setIsSignup(true)}
->
-  Sign Up
-</button>
+    <form 
+      onSubmit={handleSubmit} 
+      className="mt-16 flex flex-col items-center w-full max-w-lg p-8 bg-gradient-to-br from-[#3c2719] to-[#000000] shadow-2xl rounded-3xl font-lilita border-b-4 border-r-4 border-amber-950 text-white space-y-6"
+    >
+      
+      <h2 className="text-3xl  text-yellow-500 mb-2 border-b-2 border-yellow-400 w-3/4 pb-2 text-center">
+        {mode === "login" ? "Login" : "Sign Up"}
+      </h2>
 
-      </div>
-
-      <form onSubmit={(e) => { e.preventDefault(); onAuthSuccess(); }} className="w-full space-y-5">
+     
+      <div className="w-full">
+        <label htmlFor="email" className="block text-lg  text-yellow-500 mb-1">
+          Email
+        </label>
         <input
           type="email"
-          placeholder="📧 Enter your email"
-          className="w-full p-3 rounded-full border-2 border-amber-950 bg-amber-50 placeholder-amber-950 text-amber-950 font-semibold focus:outline-none focus:ring-2 focus:ring-yellow-500"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          id="email"
+          value={formData.email}
+          onChange={handleChange}
           required
+          placeholder="Enter your email"
+          className="w-full p-3 rounded-full bg-yellow-700/30  text-yellow-300 shadow-sm focus:ring-2 focus:ring-[#D7A86E] focus:outline-none"
         />
+      </div>
 
-        <div className="relative">
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="🔒 Enter password"
-            className="w-full p-3 rounded-full border-2 border-amber-950 bg-amber-50 placeholder-amber-950 text-amber-950 font-semibold focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-4 flex items-center text-xl"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? "🙈" : "👁️"}
-          </button>
-        </div>
+    
+      <div className="w-full">
+        <label htmlFor="password" className="block text-lg  text-yellow-500 mb-1">
+          Password
+        </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+          placeholder="Enter your password"
+          className="w-full p-3 rounded-full bg-yellow-700/30  text-yellow-300 shadow-sm focus:ring-2 focus:ring-[#D7A86E] focus:outline-none"
+        />
+      </div>
 
+     
+      <div className="flex flex-col sm:flex-row w-full gap-4">
+        
         <button
           type="submit"
-          className="mt-4 w-full py-3 rounded-full bg-gradient-to-r border-b-2 border-red-500 from-red-600 to-[#380303] text-white font-bold shadow-lg transition-all duration-300 hover:scale-105"
+          className="mt-4 w-full py-3 rounded-full bg-gradient-to-r border-b-2 border-lime-500 from-[#388134]  to-[#556B2F] text-white  shadow-lg transition-all duration-300 hover:scale-105"
+          disabled={loading}
         >
-          {isSignup ? "🚀 Sign Up" : "🔑 Login"}
+          {loading ? "Loading..." : mode === "login" ? "Login" : "Sign Up"}
         </button>
-      </form>
-    </div>
+
+      
+        {mode === "login" && (
+          <button
+            type="button"
+            onClick={handleGuestLogin}
+            className="mt-4 w-full py-3 rounded-full bg-gradient-to-r border-b-2 border-red-500 from-red-600 to-[#380303] text-white  shadow-lg transition-all duration-300 hover:scale-105"
+          >
+            Login as Guest
+          </button>
+        )}
+      </div>
+    </form>
   );
 };
 

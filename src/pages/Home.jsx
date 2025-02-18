@@ -4,7 +4,7 @@ import WalletStats from "../components/WalletStats";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PreviousMatches from "../components/PreviousMatches";
-import MatchSetup from "../components/MatchSetup"; // Import modal
+import MatchSetup from "../components/MatchSetup"; 
 
 const Home = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
