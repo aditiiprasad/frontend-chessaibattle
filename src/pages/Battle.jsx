@@ -2,6 +2,7 @@ import { useState } from "react";
 import ChessGame from "../components/ChessGame";
 import MatchSetup from "../components/MatchSetup";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 const Battle = () => {
   const [gameStarted, setGameStarted] = useState(false);
@@ -26,6 +27,7 @@ const Battle = () => {
         </div>
       )}
     </div>
+    <Footer/>
     </div>
   );
 };

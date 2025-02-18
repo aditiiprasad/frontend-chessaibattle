@@ -8,19 +8,19 @@ const ChessGame = () => {
   const onDrop = (source, target) => {
     let move = game.move({ from: source, to: target, promotion: "q" });
 
-    if (move === null) return false; // Invalid move
+    if (move === null) return false; 
     setGame(new Chess(game.fen()));
     return true;
   };
 
   return (
     <div className="min-h-screen m-24 flex flex-col items-center justify-center  text-white">
-      {/* Game Title */}
+      
       <h2 className="text-3xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-red-500">
         Chess AI Battle
       </h2>
 
-      {/* Chessboard Container  */}
+    
       <div className="p-6 bg-white bg-opacity-10 backdrop-blur-md shadow-xl rounded-2xl border border-white/20">
         <Chessboard
           position={game.fen()}

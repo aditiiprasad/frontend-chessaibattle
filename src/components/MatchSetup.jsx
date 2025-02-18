@@ -1,18 +1,30 @@
+
+  
+
 import { useState } from "react";
 
-const MatchSetup = ({ startGame }) => {
+
+
+const MatchSetup = ({ closeModal }) => {
   const [bet, setBet] = useState(0);
   const [aiModel, setAiModel] = useState("Stockfish");
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center  text-white">
-      {/* Card */}
-      <div className="max-w-6xl mx-auto bg-[#3E2723] bg-opacity-80 backdrop-blur-md shadow-2xl shadow-lg rounded-2xl p-8 text-center border border-white/20">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md z-50">
+      <div className="max-w-6xl mx-auto bg-[#3E2723] bg-opacity-80 backdrop-blur-md shadow-2xl rounded-2xl p-8 text-center border border-white/20">
+        
+        <button
+          onClick={closeModal}
+          className="absolute top-4 right-6 text-white text-2xl hover:text-red-500"
+        >
+          ✖
+        </button>
+
         <h2 className="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-[#CFAF50]">
           Match Setup
         </h2>
 
-        {/* AI Model Selection */}
+       
         <label className="text-lg text-[#D7CCC8] mb-2 block">Choose AI Model:</label>
         <select
           value={aiModel}
@@ -23,7 +35,7 @@ const MatchSetup = ({ startGame }) => {
           <option value="RL-Agent">RL-Based AI</option>
         </select>
 
-        {/* Bet Amount */}
+       
         <label className="text-lg text-[#D7CCC8] mt-4 mb-2 block">Enter Bet Amount:</label>
         <input
           type="number"
@@ -33,9 +45,12 @@ const MatchSetup = ({ startGame }) => {
           min="1"
         />
 
-        {/* Start Button */}
+     
         <button
-          onClick={() => startGame(aiModel, bet)}
+          onClick={() => {
+            console.log(`Starting game with ${aiModel} and bet of ${bet}`);
+            closeModal();
+          }}
           className="mt-6 w-full py-3 rounded-xl bg-gradient-to-r from-[#FFD54F] to-[#FFB300] text-black font-semibold shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
         >
           Start Game ♟️
@@ -46,3 +61,4 @@ const MatchSetup = ({ startGame }) => {
 };
 
 export default MatchSetup;
+
